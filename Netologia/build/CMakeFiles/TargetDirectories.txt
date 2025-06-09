@@ -1,0 +1,3 @@
+C:/Users/Dark/source/repos/Netologia/Netologia/build/CMakeFiles/Netologia.dir
+C:/Users/Dark/source/repos/Netologia/Netologia/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/Dark/source/repos/Netologia/Netologia/build/CMakeFiles/ZERO_CHECK.dir

@@ -5,14 +5,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F937EF02-2CBA-458B-B326-F883DDAB3D5D}|Netologia\\Netologia.vcxproj|C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\FileName.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F937EF02-2CBA-458B-B326-F883DDAB3D5D}|Netologia\\Netologia.vcxproj|solutionrelative:Netologia\\FileName.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F937EF02-2CBA-458B-B326-F883DDAB3D5D}|Netologia\\Netologia.vcxproj|C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\Math.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F937EF02-2CBA-458B-B326-F883DDAB3D5D}|Netologia\\Netologia.vcxproj|solutionrelative:Netologia\\Math.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F937EF02-2CBA-458B-B326-F883DDAB3D5D}|Netologia\\Netologia.vcxproj|C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\Math.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{F937EF02-2CBA-458B-B326-F883DDAB3D5D}|Netologia\\Netologia.vcxproj|solutionrelative:Netologia\\Math.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,35 +14,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{6324226f-61b6-4f28-92ee-18d4b5fe1e48}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Math.cpp",
-              "DocumentMoniker": "C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\Math.cpp",
-              "RelativeDocumentMoniker": "Netologia\\Math.cpp",
-              "ToolTip": "C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\Math.cpp",
-              "RelativeToolTip": "Netologia\\Math.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-05-17T15:36:30.203Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Math.h",
-              "DocumentMoniker": "C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\Math.h",
-              "RelativeDocumentMoniker": "Netologia\\Math.h",
-              "ToolTip": "C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\Math.h",
-              "RelativeToolTip": "Netologia\\Math.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-05-17T15:35:09.214Z"
             },
             {
               "$type": "Document",
@@ -60,7 +28,7 @@
               "RelativeDocumentMoniker": "Netologia\\FileName.cpp",
               "ToolTip": "C:\\Users\\Dark\\source\\repos\\Netologia\\Netologia\\FileName.cpp",
               "RelativeToolTip": "Netologia\\FileName.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAOAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-04-28T13:59:03.786Z",
               "EditorCaption": ""
