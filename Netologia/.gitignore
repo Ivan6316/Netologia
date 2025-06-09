@@ -1,3 +1,6 @@
-.vs/Netologia
+# Игнорировать ВСЮ папку .vs (Visual Studio)
+.vs/
+
+# Игнорировать конкретные файлы (если они не должны попадать в Git)
 Netologia
 Netologia.sin
