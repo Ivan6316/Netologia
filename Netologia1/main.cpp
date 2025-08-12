@@ -1,30 +1,20 @@
-#include <iostream>
-
-using namespace std;
-
-struct point {
-	double m_x;
-	double m_y;
-	point(double x, double y) {
-		m_x = x;
-		m_y = y;
-	}
-};
-
-void print_point(const point& point_object);
+#include "smartArray.h"
 
 int main()
 {
-	int i;
-	for (i = 0; i < 5; i++); {
-		point my_point(i, 2 * i);
-		print_point(my_point);
+	// Действия из примера
+	try {
+		smart_array arr(5);
+		arr.add_element(1);
+		arr.add_element(4);
+		arr.add_element(155);
+		arr.add_element(14);
+		arr.add_element(15);
+		std::cout << arr.get_element(1) << std::endl;
+	}
+	catch (const std::exception& ex) {
+		std::cout << ex.what() << std::endl;
 	}
 
-	return 0;
-}
-
-void print_point(const point& point_object) {
-	std::cout << "x:" << point_object.m_x << ", y: "
-		<< point_object.m_y << std::endl;
+	return EXIT_SUCCESS;
 }
