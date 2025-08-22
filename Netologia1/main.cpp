@@ -1,11 +1,11 @@
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 
 template<typename T>
-void squaring(T a);
+T squaring(T a);
 
 template<>
-void squaring(std::vector<int> vector);
+std::vector<int> squaring(std::vector<int> vector);
 
 int main()
 {
@@ -13,30 +13,33 @@ int main()
 	double aNumberWithADot{ 2.5 };
 	std::vector<int> vector{ 1, 2, 3, 4, 5 };
 
-	squaring(number);
-	squaring(aNumberWithADot);
-	squaring(vector);
+	// Вывод ответов
+	std::cout << squaring(number) << std::endl;
+	std::cout << squaring(aNumberWithADot) << std::endl;
+	for (int num : squaring(vector))
+	{
+		std::cout << num << " ";
+	}
 
 
 	return EXIT_SUCCESS;
 }
 
 template<typename T>
-void squaring(T a)
+T squaring(T a)
 {
-	std::cout << a * a << std::endl;
+	return a * a;
 }
 
 template<>
-void squaring(std::vector<int> vector)
+std::vector<int> squaring(std::vector<int> vector)
 {
-	for (size_t index{}; index < vector.size(); ++index)
+	// Вектор ответов
+	std::vector<int> answers;
+	for (int num : vector)
 	{
-		std::cout << vector[index] * vector[index];
-		if (index != vector.size() - 1)
-		{
-			std::cout << ", ";
-		}
+		answers.push_back(num * num);
 	}
-	std::cout << std::endl;
+
+	return answers;
 }
