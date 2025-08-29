@@ -1,45 +1,38 @@
 ﻿#include <iostream>
 #include <vector>
+#include <algorithm>
 
-template<typename T>
-T squaring(T a);
-
-template<>
-std::vector<int> squaring(std::vector<int> vector);
+// Вывод вектора
+void printVector(std::vector<int> vec);
 
 int main()
 {
-	int number{ 4 };
-	double aNumberWithADot{ 2.5 };
-	std::vector<int> vector{ 1, 2, 3, 4, 5 };
+	// Подключение Русского языка
+	setlocale(LC_ALL, "rus");
 
-	// Вывод ответов
-	std::cout << squaring(number) << std::endl;
-	std::cout << squaring(aNumberWithADot) << std::endl;
-	for (int num : squaring(vector))
-	{
-		std::cout << num << " ";
-	}
+	std::vector<int> numbers = { 1, 1, 2, 5, 6, 1, 2, 4 };
+
+	std::cout << "Вектор до удаления дубликатов: ";
+	printVector(numbers);
+
+	// Сортируем вектор
+	std::sort(numbers.begin(), numbers.end());
+	// Удаляем повторяющееся последовательные элементы
+	auto it{ std::unique(numbers.begin(), numbers.end()) };
+	numbers.erase(it, numbers.end());
+
+	std::cout << "Вектор после удаления дубликатов: ";
+	printVector(numbers);
 
 
 	return EXIT_SUCCESS;
 }
 
-template<typename T>
-T squaring(T a)
+void printVector(std::vector<int> vec)
 {
-	return a * a;
-}
-
-template<>
-std::vector<int> squaring(std::vector<int> vector)
-{
-	// Вектор ответов
-	std::vector<int> answers;
-	for (int num : vector)
+	for (const int& num : vec)
 	{
-		answers.push_back(num * num);
+		std::cout << num << " ";
 	}
-
-	return answers;
+	std::cout << std::endl;
 }
