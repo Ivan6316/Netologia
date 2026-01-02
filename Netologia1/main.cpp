@@ -1,96 +1,77 @@
 #include <iostream>
-#include <string>
-#include <vector>
-#include <map>
-#include <cassert>
+#include <fstream>
 
-class SqlSelectQueryBuilder
-{
-private:
-    std::vector<std::string> columns_;
-    std::string table_;
-    std::map<std::string, std::string> where_conditions_;
-
+// Изначальный класс
+class LogCommand {
 public:
-    SqlSelectQueryBuilder() = default;
+    virtual ~LogCommand() = default;
+    virtual void print(const std::string& message) = 0;
+};
 
-    SqlSelectQueryBuilder& AddColumn(const std::string& column)
+// Класс, который пишет message в консоль
+class OutputToTheConsole : public LogCommand
+{
+public:
+    void print(const std::string& message) override
     {
-        columns_.push_back(column);
-        return *this;
-    }
-
-    SqlSelectQueryBuilder& AddFrom(const std::string& table)
-    {
-        table_ = table;
-        return *this;
-    }
-
-    SqlSelectQueryBuilder& AddWhere(const std::string& column, const std::string& value)
-    {
-        where_conditions_[column] = value;
-        return *this;
-    }
-
-    std::string BuildQuery() const
-    {
-        std::string query = "SELECT ";
-
-        // Добавляем столбцы или *
-        if (columns_.empty())
-        {
-            query += "*";
-        }
-        else
-        {
-            for (size_t i = 0; i < columns_.size(); ++i)
-            {
-                query += columns_[i];
-                if (i != columns_.size() - 1)
-                {
-                    query += ", ";
-                }
-            }
-        }
-
-        // Добавляем таблицу
-        if (!table_.empty())
-        {
-            query += " FROM " + table_;
-        }
-
-        // Добавляем условия WHERE
-        if (!where_conditions_.empty())
-        {
-            query += " WHERE ";
-            bool first = true;
-            for (const auto& condition : where_conditions_)
-            {
-                if (!first)
-                {
-                    query += " AND ";
-                }
-                query += condition.first + "=" + condition.second;
-                first = false;
-            }
-        }
-
-        query += ";";
-        return query;
+        // Вывод message в консоль
+        std::cout << message << std::endl;
     }
 };
 
+// Класс, который записывает message в файл
+class WritingToAFile : public LogCommand
+{
+private:
+    std::string _filePath_{};
+
+public:
+    WritingToAFile(const std::string& path) : _filePath_(path) {}
+
+    void print(const std::string& message) override
+    {
+        // Открытие файла в режиме добавления
+        std::ofstream file(_filePath_, std::ios::app);
+        // Проверка на открытие
+        if (!file.is_open())
+        {
+            std::cerr << "Error when opening a file: " << _filePath_ << std::endl;
+        }
+        else
+        {
+            // Сохранение message в файл
+            file << message << std::endl;
+
+            file.close();
+        }
+    }
+};
+
+// Функция для выполнения команды
+void print(LogCommand& command);
+
 int main()
 {
-    SqlSelectQueryBuilder query_builder;
-    query_builder.AddColumn("name").AddColumn("phone");
-    query_builder.AddFrom("students");
-    query_builder.AddWhere("id", "42").AddWhere("name", "John");
+    // Подключение Русского языка
+    setlocale(LC_ALL, "rus");
 
-    std::string expected_query = "SELECT name, phone FROM students WHERE id=42 AND name=John;";
-    std::string actual_query = query_builder.BuildQuery();
+    // Создание команд
+    OutputToTheConsole consoleCommand;
+    WritingToAFile fileCommand("input.txt");
 
-    assert(actual_query == expected_query && "Queries don't match!");
+    // Выполняем команду вывода в консоль
+    std::cout << "Тест вывода в консоль:" << std::endl;
+    print(consoleCommand);
 
-    return EXIT_SUCCESS;
+    // Выполняем команду вывода в файл
+    std::cout << "\nТест вывода в файл" << std::endl;
+    print(fileCommand);
+
+
+	return EXIT_SUCCESS;
+}
+
+void print(LogCommand& command)
+{
+    command.print("Выполнение команды логирования");
 }
