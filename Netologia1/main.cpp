@@ -1,77 +1,91 @@
-#include <iostream>
+// Все нарушения:
+// 1. Принцип разделения интерфейса
+// 2. Принцип открытости/закрытости
+// 3. Принцип подстановки Барбары Лисков
+
+// Код не открыт для расширения и закрыт для модификации при добавлении новых форматов
+
 #include <fstream>
 
-// Изначальный класс
-class LogCommand {
-public:
-    virtual ~LogCommand() = default;
-    virtual void print(const std::string& message) = 0;
-};
-
-// Класс, который пишет message в консоль
-class OutputToTheConsole : public LogCommand
+// Printable нарушает принцип разделение интерфейса
+// Этот класс содержит слишком много методов, которые не все его наследники могут осмысленно реализовать
+class Printable
 {
 public:
-    void print(const std::string& message) override
+    virtual ~Printable() = default;
+
+    virtual std::string printAsHTML() const = 0;
+    virtual std::string printAsText() const = 0;
+    virtual std::string printAsJSON() const = 0;
+};
+
+// Data нарушает принцип подстановки Барбары Лисков
+// Методы в этом классе могут выкинуть исключение
+class Data : public Printable
+{
+public:
+    enum class Format
     {
-        // Вывод message в консоль
-        std::cout << message << std::endl;
-    }
-};
+        kText,
+        kHTML,
+        kJSON
+    };
 
-// Класс, который записывает message в файл
-class WritingToAFile : public LogCommand
-{
+    Data(std::string data, Format format)
+        : data_(std::move(data)), format_(format) {
+    }
+
+    std::string printAsHTML() const override
+    {
+        if (format_ != Format::kHTML) {
+            throw std::runtime_error("Invalid format!");
+        }
+        return "<html>" + data_ + "<html/>";
+    }
+    std::string printAsText() const override
+    {
+        if (format_ != Format::kText) {
+            throw std::runtime_error("Invalid format!");
+        }
+        return data_;
+    }
+    std::string printAsJSON() const override
+    {
+        if (format_ != Format::kJSON) {
+            throw std::runtime_error("Invalid format!");
+        }
+        return "{ \"data\": \"" + data_ + "\"}";
+    }
+
 private:
-    std::string _filePath_{};
-
-public:
-    WritingToAFile(const std::string& path) : _filePath_(path) {}
-
-    void print(const std::string& message) override
-    {
-        // Открытие файла в режиме добавления
-        std::ofstream file(_filePath_, std::ios::app);
-        // Проверка на открытие
-        if (!file.is_open())
-        {
-            std::cerr << "Error when opening a file: " << _filePath_ << std::endl;
-        }
-        else
-        {
-            // Сохранение message в файл
-            file << message << std::endl;
-
-            file.close();
-        }
-    }
+    std::string data_;
+    Format format_;
 };
 
-// Функция для выполнения команды
-void print(LogCommand& command);
-
-int main()
+void saveTo(std::ofstream& file, const Printable& printable, Data::Format format)
 {
-    // Подключение Русского языка
-    setlocale(LC_ALL, "rus");
-
-    // Создание команд
-    OutputToTheConsole consoleCommand;
-    WritingToAFile fileCommand("input.txt");
-
-    // Выполняем команду вывода в консоль
-    std::cout << "Тест вывода в консоль:" << std::endl;
-    print(consoleCommand);
-
-    // Выполняем команду вывода в файл
-    std::cout << "\nТест вывода в файл" << std::endl;
-    print(fileCommand);
-
-
-	return EXIT_SUCCESS;
+    switch (format)
+    {
+    case Data::Format::kText:
+        file << printable.printAsText();
+        break;
+    case Data::Format::kJSON:
+        file << printable.printAsJSON();
+        break;
+    case Data::Format::kHTML:
+        file << printable.printAsHTML();
+        break;
+    }
 }
 
-void print(LogCommand& command)
-{
-    command.print("Выполнение команды логирования");
+void saveToAsHTML(std::ofstream& file, const Printable& printable) {
+    saveTo(file, printable, Data::Format::kHTML);
+}
+
+void saveToAsJSON(std::ofstream& file, const Printable& printable) {
+    saveTo(file, printable, Data::Format::kJSON);
+}
+
+void saveToAsText(std::ofstream& file, const Printable& printable) {
+    saveTo(file, printable, Data::Format::kText);
 }
